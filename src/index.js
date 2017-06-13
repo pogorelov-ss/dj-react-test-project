@@ -9,8 +9,6 @@ import IndexPage from './js/pages/index'
 import AuthorizationPage from './js/pages/authorization'
 import RegistrationPage from './js/pages/registration'
 
-console.log(document.getElementById('react-app'))
-
 ReactDOM.render(
     <Router>
         <div>

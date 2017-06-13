@@ -6,14 +6,21 @@ var SplitByPathPlugin = require('webpack-split-by-path');
 
 module.exports = {
     context: __dirname,
-    entry: './src/index.js',
+    entry: [
+        'webpack-dev-server/client?http://localhost:3000',
+        'webpack/hot/only-dev-server',
+        './src/index.js'
+    ],
     output: {
         path: path.resolve('./build/'),
         filename: "[name]-[hash].js",
-        chunkFilename: "[name]-[hash].js"
+        chunkFilename: "[name]-[hash].js",
+        publicPath: 'http://localhost:3000/assets/bundles/',
     },
 
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
         new BundleTracker({ filename: './webpack-stats.json' }),
         // new SplitByPathPlugin([{
         //     name: 'vendor',
@@ -26,10 +33,10 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['es2015', 'stage-0', 'react'],
-                },
+                loaders: [
+                    'react-hot-loader',
+                    'babel-loader?presets[]=es2015,presets[]=stage-0,presets[]=react,plugins[]=transform-runtime',
+                ],
             },
         ],
     },
