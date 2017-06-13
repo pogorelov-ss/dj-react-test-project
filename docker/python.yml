@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+
+    python-app:
+        build:
+           context: ../
+           dockerfile: ./Dockerfile
+        container_name: python-app
+        # command: runserver
+        environment:
+            DJANGO_SETTINGS_MODULE: app.settings
+        volumes:
+            - ../:/dj_app
+            - ../python-entrypoint.sh:/python-entrypoint.sh
+        ports:
+            - "8000:8000"
