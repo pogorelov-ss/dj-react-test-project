@@ -6,9 +6,9 @@ var SplitByPathPlugin = require('webpack-split-by-path');
 
 module.exports = {
     context: __dirname,
-    entry: './assets/js/index',
+    entry: './src/index.js',
     output: {
-        path: path.resolve('./assets/bundles/'),
+        path: path.resolve('./build/'),
         filename: "[name]-[hash].js",
         chunkFilename: "[name]-[hash].js"
     },

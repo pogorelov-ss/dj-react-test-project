@@ -1,0 +1,15 @@
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/public/favicon.png" type="image/png">
+    <title>DEC</title>
+  </head>
+
+  <body>
+    <div id="react-app"></div>
+    {% render_bundle 'main' %}
+  </body>
+</html>
