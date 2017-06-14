@@ -16,9 +16,7 @@ gulp.task('build:client:js', function(callback) {
     })
 })
 
-gulp.task('build:client', ['build:client:js'], function () {
-    gulp.watch('./src/**/*.*', ['build:client'])
-})
+gulp.task('build:client', ['build:client:js'])
 
 gulp.task('build:server-render:js', function(callback) {
     webpack(webpackServerConfig, function(err, stats) {
@@ -31,17 +29,19 @@ gulp.task('build:server-render:js', function(callback) {
 })
 
 gulp.task('build:server-render:render', ['build:server-render:js'], shell.task(['node build/render_pages.js']))
+gulp.task('build:server-render:only-build', ['build:server-render:js', 'build:server-render:render'])
 
 gulp.task('build:server-render', [
         'build:server-render:js', 'build:server-render:render'
     ], function () {
-        gulp.watch('./src/**/*.*', ['build:server-render'])
+        // gulp.watch('./src/**/*.*', ['build:server-render'])
     })
+
 
 gulp.task('dev-server:start', [/*'build'*/], function() {
     server.listen({path: './src/dev_server.js'})
 })
 
-gulp.task('build', [/*'build:client',*/ 'build:server-render'])
+gulp.task('build', ['build:client', 'build:server-render:only-build'])
 
-gulp.task('default', ['build', 'dev-server:start'])
+gulp.task('default', ['build:server-render', 'dev-server:start'])
