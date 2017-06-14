@@ -1,16 +1,18 @@
-var path = require("path");
-var webpack = require('webpack');
-var BundleTracker = require('webpack-bundle-tracker');
-var SplitByPathPlugin = require('webpack-split-by-path');
-
+const path = require("path")
+const webpack = require('webpack')
+const BundleTracker = require('webpack-bundle-tracker')
+const SplitByPathPlugin = require('webpack-split-by-path')
 
 module.exports = {
     context: __dirname,
-    entry: [
-        'webpack-dev-server/client?http://localhost:3000',
-        'webpack/hot/only-dev-server',
-        './src/index.js'
-    ],
+    entry: {
+        main: [
+            'webpack-dev-server/client?http://localhost:3000',
+            'webpack/hot/only-dev-server',
+            './src/index.js'
+        ],
+    },
+
     output: {
         path: path.resolve('./build/'),
         filename: "[name]-[hash].js",
