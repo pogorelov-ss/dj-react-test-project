@@ -34,11 +34,11 @@ gulp.task('build:server-render:only-build', ['build:server-render:js', 'build:se
 gulp.task('build:server-render', [
         'build:server-render:js', 'build:server-render:render'
     ], function () {
-        // gulp.watch('./src/**/*.*', ['build:server-render'])
+        gulp.watch('./src/**/*.*', ['build:server-render'])
     })
 
 
-gulp.task('dev-server:start', [/*'build'*/], function() {
+gulp.task('dev-server:start', function() {
     server.listen({path: './src/dev_server.js'})
 })
 
