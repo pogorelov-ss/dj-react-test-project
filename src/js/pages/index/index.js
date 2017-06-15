@@ -1,13 +1,15 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+
+import Link from '../../components/link'
 
 class IndexPage extends React.Component {
     render() {
         return (
             <div>
-                <Link to="/authorization">authorization</Link>
-                <br/>
-                <Link to="/registration">registration</Link>
+                <div>
+                    <Link path="/authorization" text="authorization" />
+                    <Link path="/registration" text="registration" />
+                </div>
                 <h1>Index</h1>
             </div>
         )
