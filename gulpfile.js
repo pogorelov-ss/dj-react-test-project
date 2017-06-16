@@ -1,8 +1,8 @@
 const gulp = require('gulp')
 const gutil = require('gulp-util')
 const webpack = require('webpack')
-const webpackClientConfig = require('./webpack.config')
-const webpackServerConfig = require('./webpack.config.server')
+const webpackClientConfig = require('./webpack/webpack.config')
+const webpackServerConfig = require('./webpack/webpack.config.server')
 const server = require( 'gulp-develop-server' )
 const shell = require('gulp-shell')
 

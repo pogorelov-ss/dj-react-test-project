@@ -1,24 +1,28 @@
-const path = require("path")
-const nodeExternals = require('webpack-node-externals')
+const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+
+const cssConfig = 'css-loader?modules&importLoaders=1&localIdentName=[path][name]-[local]-[hash:base64:5]'
+const autoprefixerConfig = 'autoprefixer-loader?{browsers:["> 1%", "last 2 versions", "Firefox ESR", "Opera 12.1"]}'
+
 
 module.exports = {
     context: __dirname,
     entry: {
-        render_pages: './src/render_pages.js',
+        main: [
+            '../src/index.js'
+        ],
     },
+
     output: {
         path: path.resolve('./build/'),
-        filename: "[name].js",
-        chunkFilename: "[name].js",
+        filename: '[name]-[hash].js',
+        chunkFilename: '[name]-[hash].js',
     },
-    target: 'node',
-    externals: [
-        nodeExternals(),
-    ],
+
     plugins: [
         new ExtractTextPlugin('styles.css'),
     ],
+
     module: {
         loaders: [
             {
@@ -30,33 +34,30 @@ module.exports = {
                 ],
             },
             {
-                test: /\.html$/,
-                loader: 'raw-loader',
-            },
-            {
                 test: /\.css$/,
                 loader: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: 'css-loader!autoprefixer-loader?{browsers:["> 1%", "last 2 versions", "Firefox ESR", "Opera 12.1"]}',
+                    use: cssConfig +'!' + autoprefixerConfig,
                 }),
             },
             {
                 test: /\.styl$/,
                 loader: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: 'css-loader?modules&importLoaders=1&localIdentName=[path][name]-[local]-[hash:base64:5]!autoprefixer-loader?{browsers:["> 1%", "last 2 versions", "Firefox ESR", "Opera 12.1"]}!stylus-loader',
+                    use: cssConfig + '!' + autoprefixerConfig + '!stylus-loader',
                 }),
             },
             {
                 test: /\.sass$/,
                 loader: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: 'css-loader?modules&importLoaders=1&localIdentName=[path][name]-[local]-[hash:base64:5]!autoprefixer-loader?{browsers:["> 1%", "last 2 versions", "Firefox ESR", "Opera 12.1"]}!sass-loader',
+                    use: cssConfig + '!' + autoprefixerConfig + '!sass-loader',
                 }),
             },
         ],
     },
     resolve: {
+        modules: ['node_modules', 'src', 'src/js'],
         extensions: ['.js', '.jsx']
     },
 }
